@@ -23,29 +23,39 @@
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
     </div>
-</form>
+    </form>
+    <ul>
     {% for message in messages %}
-
-    <div class="d-flex"><p>{{message.user.first_name}}: </p><p>{{ message.text }}</p> </div>
+    <li>
+    <div class="d-flex"><p>{{message.user.first_name}}: </p><p>{{ message.text }}</p>
+        <p>{{ message.id }}</p> </div>
     <div>
-        {% for comment in message.comments.all %}
+        <ul>
+            <li>
+                {% for comment in message.comments.all %}
         <div class="d-flex">
            <p>{{ comment.comment.user.first_name }}</p>
             <p>{{ comment.comment }}</p>
 
         </div> 
-          {% endfor%}
+    {% endfor%}
     </div>
-    <form action="/message/{{user.id}}/comment/{{message.id}}" method="POST">
+    <form action="/message/{{ message.id }}/comment" method="POST">
         {% csrf_token %}
     <div class="context">
-        <div class="form-floating">
+         <div class="form-floating">
             <textarea class="form-control" name="comment" placeholder="Leave a comment here" id="comment"></textarea>
             <label for="comment">Leave a comment here</label>
             <button type="submit" class="btn btn-success">Comment</button>
           </div>
     </div>
+</form>
+            </li>
+        </ul>
+    
     {% endfor %}
+</li>
+</ul>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>

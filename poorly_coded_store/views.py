@@ -51,10 +51,10 @@ def signin(request):
     return redirect("/login")
 def success(request,id):
     user =User.objects.get(id=id)
-    message=Message.objects.all()
+    sms=Message.objects.all()
     context = {
         "user": user ,
-        "messages": message,
+        "messages": sms,
     }
     return render(request, "succes.html",context)
 def logout(request):
@@ -62,12 +62,26 @@ def logout(request):
     return redirect("/login")
 
 def createmessage(request,id):
+    print(id)
     message= Message.objects.create(text=request.POST['message'],user_id=id)
+    print(message.id)
     return redirect("/success/"+str(id))
 
-def createcomment(request,id,smsid):
-    comment= Comment.objects.create(comment=request.POST['comment'],user_id=id,message_id=smsid)
+def createcomment(request,id):
+    print(id)
+    user =User.objects.get(id=id)
+    comment= Comment.objects.create(comment=request.POST['comment'],message_id=id,user_id=request.session['userid'])
     return redirect("/success/"+str(id))
+
+
+
+
+
+
+
+
+
+
 
 
 

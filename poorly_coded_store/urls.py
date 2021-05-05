@@ -10,5 +10,5 @@ urlpatterns = [
     path('success/<str:id>', views.success),
     path('logout', views.logout),
     path('message/<str:id>/create', views.createmessage),
-    path('message/<str:id>/comment/<str:smsid>', views.createcomment),
+    path('message/<str:id>/comment', views.createcomment),
 ]
